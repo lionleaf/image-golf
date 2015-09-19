@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-request_number = 300
+request_number = 200
 output = "output1.txt"
 
 from clarifai.client import ClarifaiApi
