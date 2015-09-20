@@ -73,6 +73,7 @@ function findRandomPhotos(err, result) {
     }
     var urllist = []
     rns.forEach (generateURLs)
+<<<<<<< HEAD:js/gimgget.js
 
     console.log(urllist)
 }    
