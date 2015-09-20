@@ -1,11 +1,11 @@
 'use strict';
 var fs = require('fs')
 var express = require('express');
-var fs = require('fs');
 var app = express();
 app.set("views", "./views");
 app.set("view engine", "jade");
 var clarifai = require('./clarifai_node.js');
+var imgget = require(./gimgget.js)
 
 // verify that clarify credentials are present
 // verify and use clarifai credentials
@@ -33,6 +33,7 @@ app.post('/select-url', function (req, res) {
 });
 // Newgame call
 app.get('/newgame', function(req, res) {
+	imgget.contactFlickr();
 	/*
 	var img = randImage();
 	var tag = randTag();
