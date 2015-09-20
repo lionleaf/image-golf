@@ -1,16 +1,10 @@
-function randomInt (low, high) {
-    
-    return Math.floor(Math.random() * (high - low) + low) 
-}
-
-
-
 var fs = require('fs') 
 var request = require("request") 
 var async = require("async")
-
-function download (url, dest, cb) {
-          
+function randomInt(low, high) {
+    return Math.floor(Math.random() * (high - low) + low) 
+}
+function download(url, dest, cb) {
     var file = fs.createWriteStream(dest) 
       
     request
@@ -21,17 +15,15 @@ function download (url, dest, cb) {
         })
         .pipe(file)
 }
+function contactFlickr() {
+   // read flickr secret
+   var sk = "" 
+   var urllist = []
+   fs.readFile('flickr_secret_key.txt', 'utf8', function(err,data) {
+   	if (err) {
+   	    return console.log(err) 
+   	}
 
-// read flickr secret
-var sk = "" 
-var urllist = []
-fs.readFile('flickr_secret_key.txt', 'utf8', contactFlickr)
-
-function contactFlickr (err,data) {
-    if (err) {
-        return console.log(err) 
-    }
-    
     sk = data 
     
     var Flickr = require("flickrapi"),
@@ -44,7 +36,6 @@ function contactFlickr (err,data) {
     
     Flickr.tokenOnly(flickrOptions, searchForPhotos)
 }
-
 function searchForPhotos(error, flickr) {
     // we can now use "flickr" as our API object
     
@@ -58,7 +49,6 @@ function searchForPhotos(error, flickr) {
       per_page: 100
     }, findRandomPhotos) 
 }
-
 function findRandomPhotos(err, result) {
     var photos = result.photos 
     var photo_list = photos.photo 
@@ -104,7 +94,13 @@ function findRandomPhotos(err, result) {
         //    fs.rename('./image' + index, './image'+ index + imagetype) 
         //}
     }
-    
     console.log(urllist)
-    
 }
+module.exports = {
+	randomInt: randomInt,
+	download: download,
+	contactFlickr: contactFlickr,
+	searchForPhotos: searchForPhotos,
+	findRandomPhotos: findRandomPhotos
+}
+
