@@ -8,6 +8,7 @@ app.set("view engine", "jade");
 var clarifai = require('./clarifai_node.js');
 
 // verify that clarify credentials are present
+// verify and use clarifai credentials
 fs.readFile('assets/clarifaiCredentials.txt', function (err, contents) {
 	if (err) throw err;
 	var creds = contents.toString().split('\n');
@@ -17,7 +18,7 @@ fs.readFile('assets/clarifaiCredentials.txt', function (err, contents) {
 // Game session variables
 var goalTag;
 
-// ~~~ Request handlers ~~~
+// ~~~~~~~~~~~~~~~~~~~~~~~~ Request handlers ~~~~~~~~~~~~~~~~~~~~~~~~
 // Landing page
 app.get('/', function (req, res) {
     res.render('index', { title: 'Hey', message: 'Hello there!'});
@@ -47,8 +48,8 @@ app.get('/picselect', function(req, res) {
 });
 
 app.get('/test', function(req,res) {
-    url = 'http://i.imgur.com/l35eOVB.jpg'
-    clarifai.tagURL( url , url, function(err, clarires){
+    var url = 'http://i.imgur.com/l35eOVB.jpg'
+    clarifai.tagURL( url , url, function(err, clarires) {
         if( err != null ) {
             res.err = true;
         }
@@ -59,7 +60,6 @@ app.get('/test', function(req,res) {
             }           
         }
 
-
         if( res.err){
             res.send("ERROR"); 
         }else{
@@ -68,7 +68,6 @@ app.get('/test', function(req,res) {
 
     });
 });
-
 
 var server = app.listen(3000, function () {
 	var host = server.address().address;
