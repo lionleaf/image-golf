@@ -22,6 +22,8 @@
     "url": "https://github.com/lionleaf/image-golf/issues"
   },
   "dependencies": {
-    "express": "~4.13.3"
+    "express": "~4.13.3",
+    "fs": "0.0.2",
+    "jade": "^1.11.0"
   }
 }
