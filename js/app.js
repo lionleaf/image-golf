@@ -17,6 +17,13 @@ app.get('/', function (req, res) {
     res.render('index', { title: 'Hey', message: 'Hello there!'});
 });
 
+app.get('/select-url', function (req, res) {
+    res.render('urlselect', { });
+});
+
+app.post('/select-url', function (req, res) {
+    res.send('woohii');
+});
 
 app.get('/test', function(req,res) {
     url = 'http://i.imgur.com/l35eOVB.jpg'
@@ -30,7 +37,6 @@ app.get('/test', function(req,res) {
                 res.imgtags = clarires["results"][0].result["tag"]["classes"];
             }           
         }
-
 
 
         if( res.err){
