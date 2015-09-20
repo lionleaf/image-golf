@@ -4,6 +4,55 @@ var fs = require('fs')
 var request = require("request") 
 var async = require("async")
 
+
+tag_file_path = "/home/squilter/projects/image-golf/tagfinder/output.txt"
+
+console.log("HI")
+generateRandomStartingTag();
+generateStartingImage();
+
+function generateRandomStartingTag()
+{
+    fs.readFile(tag_file_path, 'utf8', function (err,all_tags) {
+        if (err) {
+            return console.log(err);
+        }
+        var tag_array = all_tags.split("\n");
+        var random_index = Math.floor((Math.random() * tag_array.length) + 1); 
+        console.log(tag_array[random_index]);
+        return(tag_array[random_index]);
+    });
+}
+
+//finds three random tags, appends them, and searches flickr for that string.  Takes a random result.  Returns a URL
+function generateStartingImage()
+{
+    fs.readFile(tag_file_path, 'utf8', function (err,all_tags) {
+        if (err) {
+            return console.log(err);
+        }
+        var tag_array = all_tags.split("\n");
+        var random_index1 = Math.floor((Math.random() * tag_array.length) + 1);
+        var random_index2 = Math.floor((Math.random() * tag_array.length) + 1);
+        
+        console.log([tag_array[random_index1],tag_array[random_index2]])
+        
+        list_of_urls = getImages([tag_array[random_index1],tag_array[random_index2]])
+        
+        console.log(list_of_urls)
+        
+        // if(list_of_urls == [] || list_of_urls == undefined){
+        //     return(generateStartingImage());
+        // } 
+        
+        var random_img_index = Math.floor((Math.random() * 4) + 1);
+        
+        console.log(list_of_urls[random_img_index])
+        
+        return(list_of_urls[random_img_index]);
+    });
+}
+
 async.waterfall([
     function openFile(callback) {
         // code a
